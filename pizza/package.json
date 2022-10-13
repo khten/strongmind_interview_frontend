@@ -18,6 +18,10 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@ng-bootstrap/ng-bootstrap": "^13.0.0",
+    "angular-4-data-table": "^0.4.6",
+    "angular-4-data-table-bootstrap-4": "^0.2.0",
+    "bootstrap": "^5.2.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { EmployeeService } from './employee.service';
+import { Component, OnInit } from '@angular/core';
+import { Employee } from './employee';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pizza';
+  
+  constructor(){}
+  
 }

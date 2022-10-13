@@ -1,0 +1,12 @@
+<div>
+    <h1>Pizzas</h1>
+    <button type="button">Create New Pizza</button>
+    
+
+    <div *ngFor = "let pizza of pizzas">
+        <li>{{pizza.name}}
+         <button  type="button">Edit</button>
+         <button  type="button">Delete Pizza</button>
+         </li>
+    </div>
+</div> 
