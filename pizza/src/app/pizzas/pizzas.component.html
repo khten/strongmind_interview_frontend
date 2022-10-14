@@ -1,8 +1,44 @@
 <div>
     <h1>Pizzas</h1>
-    <button type="button">Create New Pizza</button>
+    <button type="button" class="btn btn-primary">Create New Pizza</button>
+   
     
-
+   
+   <h2>Specialty Pizzas</h2>
+  
+   
+    <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Create New Pizza</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">            
+            <div class="mb-3">
+             
+                <div>
+                  <label>Pizza Name : </label>
+                  <input type="text" name="pizzaName" #pizzaName [(ngModel)] = "setName">
+                </div>
+                <div class="container">
+                    <div *ngFor = "let topping of availableToppings">
+                        <div>
+                            <input type="checkbox" name = "{{topping.name}}" (change)="onChange(topping)" [(ngModel)]="topping.isSelected" >  
+                            {{topping.name}}
+                        </div>
+            
+                    </div>
+            
+                </div>
+      
+            </div>
+        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+        </div>
+      </ng-template>
+      
+      <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
     <div *ngFor = "let pizza of pizzas">
         <li>{{pizza.name}}
          <button  type="button">Edit</button>

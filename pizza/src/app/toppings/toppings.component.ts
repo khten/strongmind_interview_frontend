@@ -38,7 +38,8 @@ export class ToppingsComponent implements OnInit {
     let topping:Topping = {
       
       name: input.value,
-      isEdit: false
+      isEdit: false,
+      isSelected: false
     }
     input.value=''
     
@@ -60,16 +61,16 @@ export class ToppingsComponent implements OnInit {
 
      this.toppingService.updateTopping(topping).subscribe({
       next: (response:Topping) => {console.log(response), topping.isEdit = false},
-      error: (err:HttpErrorResponse) => alert("Unable to Update Topping:  " + topping.name),
+      error: (err:HttpErrorResponse) => alert("Unable to Update Topping:  " + topping.name + err.message),
       
     })
     
   }
-  deleteTopping(t:Topping){
+  deleteTopping(t:Topping, index:number){
     this.toppingService.deleteTopping(t).subscribe({
       next: (response) => console.log(response),
       error: (err: HttpErrorResponse) => alert(err.message),
-      complete: ()=>this.toppings.splice(0,1)
+      complete: ()=>this.toppings.splice(index,1)
     })
   }
   

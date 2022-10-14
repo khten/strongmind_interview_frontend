@@ -5,7 +5,6 @@
         <input id ="toppingName" (keyup.enter) = "addTopping(top)" #top type="text" 
              class="form-control" >
     
-
     <table class="table">
         <thead>
             <tr>
@@ -18,7 +17,6 @@
             <tr *ngFor="let t of toppings; index as i ">
                 <td>
                     <div *ngIf="t.isEdit">
-                        
                         <input Validators.required id="{{t.name}}" #top (keyup.enter)="updateTopping(t, top)" type="text" class="form-control" value="{{t.name}}">
                     </div>
                     <div *ngIf="!t.isEdit">
@@ -33,7 +31,7 @@
                         </button>
                 </td>
                 <td>
-                         <button class="btn btn-primary" (click) ="deleteTopping(t)">Delete</button>  
+                         <button class="btn btn-primary" (click) ="deleteTopping(t,i)">Delete</button>  
                 </td>
             </tr>
         </tbody>

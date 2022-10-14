@@ -14,7 +14,7 @@ import { MyPizzasComponent } from './my-pizzas/my-pizzas.component';
 import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { ToppingFormComponent } from './topping-form/topping-form.component';
-
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,13 +24,15 @@ import { ToppingFormComponent } from './topping-form/topping-form.component';
     PizzasComponent,
     ToppingsComponent,
     MyPizzasComponent,
-    ToppingFormComponent
+    ToppingFormComponent,
+ 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    FormsModule,
     RouterModule.forRoot([
       {path: '', component:HomeComponent},
     
