@@ -35,8 +35,7 @@ export class ToppingsComponent implements OnInit {
   }
 
   addTopping(input:HTMLInputElement):void{
-    let topping:Topping = {
-      
+    let topping:any = {
       name: input.value,
       isEdit: false,
       isSelected: false

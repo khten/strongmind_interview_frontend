@@ -15,6 +15,7 @@ import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { ToppingFormComponent } from './topping-form/topping-form.component';
 import { FormsModule } from '@angular/forms';
+import { CheckboxComponent } from './checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,8 @@ import { FormsModule } from '@angular/forms';
     ToppingsComponent,
     MyPizzasComponent,
     ToppingFormComponent,
+    CheckboxComponent,
+
  
   ],
   imports: [

@@ -1,0 +1,37 @@
+<form (ngSubmit)="onsubmit()">
+    <div class = "container">
+        <div>
+            <label>Student: </label>
+            <input type="text" name = "studentname" [(ngModel)] = "_student.name">
+            <div><label>Courses :</label></div> 
+        </div>
+        
+
+        <div *ngFor="let item of _courseList">
+            <div>
+                <input type="checkbox" name = "{{item.name}}" (change) ="onchange()" [(ngModel)] = "item.isselected">
+                {{item.name}}
+            </div>     
+        </div>
+        <div>
+            <input type="submit"value = "submit">
+        </div>
+
+    </div>
+</form>
+<table class = "table table-striped table-bordered">
+    <thead>
+        <th>id</th>
+        <th>name</th>
+        <th>courses</th>
+        <th>action</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of _studentlist">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.coursename}}</td>
+            <td><input type="text" value="Edit"></td>
+        </tr>
+    </tbody>
+</table>
