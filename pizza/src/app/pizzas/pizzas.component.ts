@@ -65,7 +65,7 @@ export class PizzasComponent implements OnInit {
             console.log(`Pizza Id: ${data[i].id} ${data[i].name} with ${data[i].toppings}`)
           }
           this._pizzaList = data;
-          console.log("pizza list: " + this._pizzaList)
+          
         } 
      })
   }
@@ -97,29 +97,3 @@ class pizza{
   toppingsId:string = '';
   toppings: string = ''
 }
-  //MODAL EXAMPLE 
-  //open(content:any) {
-  //   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    
-  //     let toppingList = this.availableToppings.filter(x => x.isSelected == true);
-
-  //     this.pizzaService.createPizza({"name" : this.name, "toppings": toppingList}).subscribe({
-  //       next:(response:Pizzas) => {
-  //         console.log("Created new pizza " + response.name);
-  //       },
-  //       error:(err) => alert("Unable to create pizza"),
-      
-  //     })
-  //   }, (reason) => {
-  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  //   });
-  // }
-  // private getDismissReason(reason: any): string {
-  //   if (reason === ModalDismissReasons.ESC) {
-  //     return 'by pressing ESC';
-  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-  //     return 'by clicking on a backdrop';
-  //   } else {
-  //     return `with: ${reason}`;
-  //   }
-  // }
