@@ -18,8 +18,11 @@ export class PizzasComponent implements OnInit {
   _toppingList:Topping[] = [];
   _pizza = new pizza();
   _pizzaList:pizza[] = [];
+  topArray:string[] = [];
   uniquekey:number = 0;
+  isEditing:boolean = false;
   
+
   constructor(private toppingService:ToppingsService, private pizzaService:PizzaService){
 
   }
@@ -30,32 +33,69 @@ export class PizzasComponent implements OnInit {
     this._pizza = new pizza();
   }
 
+  edit(pizza:pizza){
+    this.isEditing = true;   
+    let selectedToppingsList = pizza.toppings.split(',');
+    console.log("selected toppings in edit: " + selectedToppingsList)
+    for(let i = 0; i < selectedToppingsList.length; ++i){
+      this._toppingList.filter(x => x.name == (selectedToppingsList[i])).map(x=>x.isSelected = true)
+    }
+    this._pizza.name = pizza.name;
+    this._pizza.id = pizza.id;
+  }
+
+  delete(pizzaId:number){
+    this.pizzaService.deletePizza(pizzaId).subscribe({
+      next: ()=> console.log("Pizza " + pizzaId + " has been deleted"),
+      error:() => console.log("An unexpected error occurred.  Unable to delete pizza"),
+      complete:() => this.getPizzas()
+    })
+  }
   onChange(){
     console.log(this._toppingList);
   }
 
   onSubmit(){
-    this.uniquekey = this._pizzaList.length;
-    this.uniquekey = this.uniquekey + 1;
-    this._pizza.id = this.uniquekey;
-    this._pizza.toppingsId = this._toppingList.filter(x => x.isSelected == true).map(x=>x.id).join(',').toString();
-    this._pizza.toppings = this._toppingList.filter(x => x.isSelected == true).map(x => x.name).join(', ').toString();
- 
-    this._pizzaList.push(this._pizza);
 
-    this.pizzaService.createPizza({"name": this._pizza.name, "toppings":this._pizza.toppings}).subscribe({
-        next: (response) => {console.log(`Creating pizza: ${response.id} ${response.name} with ${response.toppings}`)
-                            console.log(response)
-    }
+    let index = this._pizzaList.findIndex(x=>x.name == this._pizza.name);
+    this._pizza.toppings = this._toppingList.filter(x => x.isSelected == true).map(x => x.name).join(', ').toString();
+     this.topArray = this._pizza.toppings.split(',');
+    console.log("topArray: " + this.topArray);   
     
-    })
+    
+    if(!this.isEditing){
+      this.pizzaService.createPizza({"name": this._pizza.name, "toppings":this._pizza.toppings}).subscribe({
+          next: (response) => {
+                             this.uniquekey = this._pizzaList.length;
+                             this.uniquekey = this.uniquekey + 1;
+                             this._pizza.id = this.uniquekey;
+                              console.log(`Creating pizza: ${response.id} ${response.name} with ${response.toppings}`)
+                              console.log(response);
+                              
+                              this._pizzaList.push(this._pizza);
+                              this.getPizzas();
+                              },
+          error: (err) => alert(`Cannot create pizza...Duplicate Pizza Found:  Pizzas must have unique names and a unique list of toppings`)
+
+      })
+    }else{
+      this.pizzaService.updatePizza({"id": this._pizza.id, "name": this._pizza.name, "toppings":this._pizza.toppings}).subscribe({
+        next: (response) => 
+          { console.log(`Updating pizza: ${response.id} ${response.name} with ${response.toppings}`)
+           
+         },
+        error: (err) => alert(`Cannot update pizza...Duplicate Pizza Found:  Pizzas must have unique names and a unique list of toppings`),
+        complete:() => { this.isEditing = false;  this.getPizzas();}
+      })
+     
+      
+    }
     this._pizza = new pizza();
     
     this.getToppings();
     
 
   }
-  
   
   getPizzas(){
      this.pizzaService.getPizzas().subscribe({
@@ -65,7 +105,7 @@ export class PizzasComponent implements OnInit {
             console.log(`Pizza Id: ${data[i].id} ${data[i].name} with ${data[i].toppings}`)
           }
           this._pizzaList = data;
-          
+          console.log(this._pizzaList)
         } 
      })
   }
@@ -94,6 +134,6 @@ class topping{
 class pizza{
   id:number = 0;
   name:string = '';
-  toppingsId:string = '';
-  toppings: string = ''
+  toppings: string = '';
+  
 }

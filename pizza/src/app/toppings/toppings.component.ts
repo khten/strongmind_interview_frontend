@@ -34,6 +34,9 @@ export class ToppingsComponent implements OnInit {
     })
   }
 
+  cancelEdit(t:Topping){
+    t.isEdit = false;
+  }
   addTopping(input:HTMLInputElement):void{
     let topping:any = {
       name: input.value,

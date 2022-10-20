@@ -2,7 +2,7 @@
     <h1>Toppings</h1>
    
         <label for="toppingName">Enter new topping</label>
-        <input id ="toppingName" (keyup.enter) = "addTopping(top)" #top type="text" 
+        <input Validators.required id ="toppingName" (keyup.enter) = "addTopping(top)" #top type="text" 
              class="form-control" >
     
 
@@ -19,7 +19,7 @@
                 <td>
                     <div *ngIf="t.isEdit">
                         
-                        <input Validators.required  id="{{t.name}}" #top (keyup.enter)="updateTopping(t, top)" type="text" class="form-control" value="{{t.name}}">
+                        <input Validators.required  id="{{t.name}}" #top (keyup.enter)="updateTopping(t, top)"  (keyup.escape)="cancelEdit(t)" class="form-control" value="{{t.name}}">
                     </div>
                     <div *ngIf="!t.isEdit">
                         {{i + 1}}. {{t.name}}
@@ -27,13 +27,13 @@
                     
                 </td>
                 <td>
-                        <button 
-                            (click) = "editTopping(t)"
-                            class="btn btn-default btn-sm" >Edit
+                        <button class="btn btn-outline-dark" (click) = "editTopping(t)">
+                            Edit
                         </button>
+                        
                 </td>
                 <td>
-                         <button class="btn btn-primary" (click) ="deleteTopping(t,i)">Delete</button>  
+                         <button class="btn btn-outline-dark" (click) ="deleteTopping(t,i)">Delete</button>  
                 </td>
             </tr>
         </tbody>

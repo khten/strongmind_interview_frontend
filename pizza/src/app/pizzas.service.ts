@@ -25,7 +25,7 @@ export class PizzaService {
      return this.http.post<Pizzas>(`${this.apiServerUrl}/create-new-pizza`, pizza);
   }
 
-  public updatePizza(pizza:Pizzas): Observable<Pizzas>{
+  public updatePizza(pizza:any): Observable<Pizzas>{
     return this.http.put<Pizzas>(`${this.apiServerUrl}/update-pizza`, pizza);
  }
 
