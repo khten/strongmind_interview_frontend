@@ -35,11 +35,16 @@ export class PizzasComponent implements OnInit {
 
   edit(pizza:pizza){
     this.isEditing = true;   
-    let selectedToppingsList = pizza.toppings.split(',');
+    let selectedToppingsList = pizza.toppings.split(', ');
     console.log("selected toppings in edit: " + selectedToppingsList)
-    for(let i = 0; i < selectedToppingsList.length; ++i){
-      this._toppingList.filter(x => x.name == (selectedToppingsList[i])).map(x=>x.isSelected = true)
+    for(let j = 0; j < selectedToppingsList.length; ++j){
+      console.log("Current topping: " + selectedToppingsList[j])
     }
+    for(let i = 0; i < this._toppingList.length; ++i){
+      console.log("topping found: " + this._toppingList[i].name)
+       this._toppingList.filter(x => x.name == (selectedToppingsList[i])).map(x=>x.isSelected = true)
+    }
+    
     this._pizza.name = pizza.name;
     this._pizza.id = pizza.id;
   }
@@ -59,10 +64,7 @@ export class PizzasComponent implements OnInit {
 
     let index = this._pizzaList.findIndex(x=>x.name == this._pizza.name);
     this._pizza.toppings = this._toppingList.filter(x => x.isSelected == true).map(x => x.name).join(', ').toString();
-     this.topArray = this._pizza.toppings.split(',');
-    console.log("topArray: " + this.topArray);   
-    
-    
+      
     if(!this.isEditing){
       this.pizzaService.createPizza({"name": this._pizza.name, "toppings":this._pizza.toppings}).subscribe({
           next: (response) => {
@@ -75,7 +77,7 @@ export class PizzasComponent implements OnInit {
                               this._pizzaList.push(this._pizza);
                               this.getPizzas();
                               },
-          error: (err) => alert(`Cannot create pizza...Duplicate Pizza Found:  Pizzas must have unique names and a unique list of toppings`)
+          error: (err) => alert(`Cannot create pizza...:  Pizzas must have unique names and a unique list of toppings`)
 
       })
     }else{
@@ -84,7 +86,7 @@ export class PizzasComponent implements OnInit {
           { console.log(`Updating pizza: ${response.id} ${response.name} with ${response.toppings}`)
            
          },
-        error: (err) => alert(`Cannot update pizza...Duplicate Pizza Found:  Pizzas must have unique names and a unique list of toppings`),
+        error: (err) => alert(`Cannot update pizza...:  Pizzas must have unique names and a unique list of toppings`),
         complete:() => { this.isEditing = false;  this.getPizzas();}
       })
      

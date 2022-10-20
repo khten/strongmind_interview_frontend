@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
 import { PizzasComponent } from './pizzas/pizzas.component';
 import { ToppingsComponent } from './toppings/toppings.component';
-import { MyPizzasComponent } from './my-pizzas/my-pizzas.component';
 import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 
@@ -20,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     BsNavbarComponent,
     PizzasComponent,
     ToppingsComponent,
-    MyPizzasComponent
+   
 
   ],
   imports: [
@@ -29,10 +28,10 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     NgbModule,
     FormsModule,
-    RouterModule.forRoot([
-    
+    RouterModule.forRoot([ 
       {path: 'pizzas', component:PizzasComponent},
-      {path: 'toppings', component:ToppingsComponent}
+      {path: 'toppings', component:ToppingsComponent},
+      {path: '', redirectTo: '/pizzas', pathMatch: 'full'}
     ]),
    
   ],

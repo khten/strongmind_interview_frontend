@@ -1,8 +1,5 @@
-import { EmployeeService } from './employee.service';
-import { Component, OnInit } from '@angular/core';
-import { Employee } from './employee';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Component} from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
