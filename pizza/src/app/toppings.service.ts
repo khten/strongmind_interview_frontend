@@ -16,15 +16,15 @@ export class ToppingsService {
     return this.http.get<Topping[]>(`${this.apiServerUrl}/all`);
   }
 
-  public addTopping(topping:Topping):Observable<Topping>{
+  public addTopping(topping:any):Observable<Topping>{
     return this.http.post<Topping>(`${this.apiServerUrl}/add`, topping);
   }
 
-  public updateTopping(topping:Topping):Observable<Topping>{
+  public updateTopping(topping:any):Observable<Topping>{
     return this.http.put<Topping>(`${this.apiServerUrl}/update`, topping);
   }
 
-  public deleteTopping(topping:Topping):Observable<void>{
-    return this.http.delete<void>(`${this.apiServerUrl}/delete/${topping.name}`);
+  public deleteTopping(topping:Topping, index:number):Observable<void>{
+    return this.http.delete<void>(`${this.apiServerUrl}/delete/${topping.id}`);
   }
 }

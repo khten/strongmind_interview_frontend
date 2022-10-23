@@ -38,18 +38,20 @@ export class ToppingsComponent implements OnInit {
     t.isEdit = false;
   }
   addTopping(input:HTMLInputElement):void{
-    let topping:any = {
-      name: input.value,
-      isEdit: false,
-      isSelected: false
+    let top:any = {
+      "name": input.value
     }
+   
+
     input.value=''
-    
-    this.toppingService.addTopping(topping).subscribe({
+    console.log("top: " + top.name)
+    this.toppingService.addTopping(top.name).subscribe({
       next: (response:Topping) => {console.log(response)
-           this.toppings.splice(0,0,topping);
+           response.isEdit = false;
+           response.isSelected = false;
+           this.toppings.splice(0,0,top);
       },
-      error: (err:HttpErrorResponse) => alert("Duplicate Topping:  " + topping.name),
+      error: (err:HttpErrorResponse) => alert("Topping with the name: " + top.name + " already exists"),
     })
     
   }
@@ -60,16 +62,16 @@ export class ToppingsComponent implements OnInit {
   updateTopping(topping:Topping, updatedTopName: HTMLInputElement):void{
      
      topping.name = updatedTopName.value;
-
-     this.toppingService.updateTopping(topping).subscribe({
-      next: (response:Topping) => {console.log(response), topping.isEdit = false},
-      error: (err:HttpErrorResponse) => alert("Unable to Update Topping:  " + topping.name + err.message),
-      
+     console.log(topping.id);
+     this.toppingService.updateTopping({"id": topping.id, "name": topping.name}).subscribe({
+      next: (response:Topping) => {console.log(response), response.isEdit = false, response.isSelected=false, response.isEdit = false},
+      error: (err) => alert("Unable to Update Topping:  " + topping.name + " already exists"),
+      complete:() => topping.isEdit = false 
     })
     
   }
-  deleteTopping(t:Topping, index:number){
-    this.toppingService.deleteTopping(t).subscribe({
+  deleteTopping(topping:Topping, index:number){
+    this.toppingService.deleteTopping(topping,index).subscribe({
       next: (response) => console.log(response),
       error: (err: HttpErrorResponse) => alert(err.message),
       complete: ()=>this.toppings.splice(index,1)

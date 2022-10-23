@@ -2,7 +2,7 @@
     <h1>Toppings</h1>
    
         <label for="toppingName">Enter new topping</label>
-        <input Validators.required id ="toppingName" (keyup.enter) = "addTopping(top)" #top type="text" 
+        <input Validators.required id ="toppingName" #top (keyup.enter) = "addTopping(top)"  type="text" 
              class="form-control" >
     
 
