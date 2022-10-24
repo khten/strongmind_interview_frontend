@@ -11,10 +11,10 @@ import { Topping } from '../toppings';
 export class ToppingsComponent implements OnInit {
 
   toppings:Topping[] = [];
-  toppings$;
+  // toppings$;
 
   constructor(private toppingService:ToppingsService) { 
-    this.toppings$ = this.toppingService.getToppings();
+    // this.toppings$ = this.toppingService.getToppings();
   }
 
   ngOnInit(): void {
@@ -39,6 +39,7 @@ export class ToppingsComponent implements OnInit {
   }
   addTopping(input:HTMLInputElement):void{
     let top:any = {
+      
       "name": input.value
     }
    
@@ -49,7 +50,7 @@ export class ToppingsComponent implements OnInit {
       next: (response:Topping) => {console.log(response)
            response.isEdit = false;
            response.isSelected = false;
-           this.toppings.splice(0,0,top);
+           this.toppings.splice(0,0,response);
       },
       error: (err:HttpErrorResponse) => alert("Topping with the name: " + top.name + " already exists"),
     })
