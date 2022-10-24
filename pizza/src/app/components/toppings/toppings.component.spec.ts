@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { ToppingsService } from '../toppings.service';
+import { ToppingsService } from '../../services/toppings.service';
 
 import { ToppingsComponent } from './toppings.component';
 
-fdescribe('ToppingsComponent', () => {
+describe('ToppingsComponent', () => {
  
   let component: ToppingsComponent;
   let fixture: ComponentFixture<ToppingsComponent>;
@@ -26,7 +26,7 @@ fdescribe('ToppingsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 

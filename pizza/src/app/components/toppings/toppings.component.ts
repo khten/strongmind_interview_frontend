@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ToppingsService } from './../toppings.service';
+import { ToppingsService } from '../../services/toppings.service';
 import { Component, OnInit } from '@angular/core';
-import { Topping } from '../toppings';
+import { Topping } from '../../models/toppings';
 
 @Component({
   selector: 'toppings',
@@ -30,7 +30,7 @@ export class ToppingsComponent implements OnInit {
             element.isEdit = false;
           });
         },
-      error:(err:HttpErrorResponse) => alert(err.message)
+      error:(err:HttpErrorResponse) => alert('An unexpected error occurred retriving toppings' + err.message)
     })
   }
 
@@ -52,7 +52,7 @@ export class ToppingsComponent implements OnInit {
            response.isSelected = false;
            this.toppings.splice(0,0,response);
       },
-      error: (err:HttpErrorResponse) => alert("Topping with the name: " + top.name + " already exists"),
+      error: (err:HttpErrorResponse) => alert("Cannot create topping: Topping must have a unique non-blank name"),
     })
     
   }

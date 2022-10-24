@@ -1,12 +1,12 @@
+import { PizzaService } from './../../services/pizzas.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { PizzaService } from '../pizzas.service';
-import { ToppingsService } from '../toppings.service';
+import { ToppingsService } from '../../services/toppings.service';
 
 import { PizzasComponent } from './pizzas.component';
 
-fdescribe('PizzasComponent', () => {
+describe('PizzasComponent', () => {
   let component: PizzasComponent;
   let fixture: ComponentFixture<PizzasComponent>;
 
@@ -33,7 +33,7 @@ fdescribe('PizzasComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 

@@ -1,11 +1,10 @@
-import { ToppingsService } from './../toppings.service';
-import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { HttpErrorResponse } from '@angular/common/http';
-import { PizzaService } from './../pizzas.service';
+import { ToppingsService } from '../../services/toppings.service';
+
 import { Component, OnInit } from '@angular/core';
-import { Pizzas } from '../pizzas';
-import { Topping } from '../toppings';
-import {FormBuilder, FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
+import { Topping } from '../../models/toppings';
+import { Pizzas } from 'src/app/models/pizzas';
+import { PizzaService } from 'src/app/services/pizzas.service';
+
 
 
 @Component({
@@ -67,26 +66,26 @@ export class PizzasComponent implements OnInit {
       
     if(!this.isEditing){
       this.pizzaService.createPizza({"name": this._pizza.name, "toppings":this._pizza.toppings}).subscribe({
-          next: (response) => {
-                             this.uniquekey = this._pizzaList.length;
-                             this.uniquekey = this.uniquekey + 1;
-                             this._pizza.id = this.uniquekey;
+          next: (response:Pizzas) => {
+                         //    this.uniquekey = this._pizzaList.length;
+                         //    this.uniquekey = this.uniquekey + 1;
+                             this._pizza.id = response.id;
                               console.log(`Creating pizza: ${response.id} ${response.name} with ${response.toppings}`)
                               console.log(response);
                               
                               this._pizzaList.push(this._pizza);
                               this.getPizzas();
                               },
-          error: (err) => alert(`Cannot create pizza...:  Pizzas must have unique names and a unique list of toppings`)
+          error: () => alert(`Cannot create pizza...:  Pizzas must have unique names and a unique list of toppings`)
 
       })
     }else{
       this.pizzaService.updatePizza({"id": this._pizza.id, "name": this._pizza.name, "toppings":this._pizza.toppings}).subscribe({
-        next: (response) => 
+        next: (response:Pizzas) => 
           { console.log(`Updating pizza: ${response.id} ${response.name} with ${response.toppings}`)
            
          },
-        error: (err) => alert(`Cannot update pizza...:  Pizzas must have unique names and a unique list of toppings`),
+        error: () => alert(`Cannot update pizza...:  Pizzas must have unique names and a unique list of toppings`),
         complete:() => { this.isEditing = false;  this.getPizzas();}
       })
      
@@ -101,7 +100,7 @@ export class PizzasComponent implements OnInit {
   
   getPizzas(){
      this.pizzaService.getPizzas().subscribe({
-        next: (data) => {
+        next: (data:Pizzas[]) => {
           console.log("Retrieving pizzas...");
           for(let i = 0; i < data.length; ++i){
             console.log(`Pizza Id: ${data[i].id} ${data[i].name} with ${data[i].toppings}`)
@@ -115,7 +114,7 @@ export class PizzasComponent implements OnInit {
   getToppings(){
     
     this.toppingService.getToppings().subscribe({
-       next: (data) => {
+       next: (data:Topping[]) => {
            this._toppingList = data;
            //Set the isSelected property to by false for the topping list here
            for(let i = 0; i < this._toppingList.length; ++i){
@@ -127,11 +126,7 @@ export class PizzasComponent implements OnInit {
  
 
 }
-class topping{
-  id: number = 0;
-  name: string = '';
-  isSelected:boolean = false;
-}
+
 
 class pizza{
   id:number = 0;

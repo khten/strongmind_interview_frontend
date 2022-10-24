@@ -1,20 +1,21 @@
+import { Pizzas } from '../models/pizzas';
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Pizzas } from './pizzas';
-import {Topping} from './toppings'
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PizzaService {
-  private apiServerUrl= environment.apiBaseUrl + '/pizza';
+  
+  apiServerUrl= environment.apiBaseUrl + '/pizza';
 
   constructor(private http: HttpClient) { }
 
-  public getPizzas(): Observable<any[]>{
+  public getPizzas(): Observable<Pizzas[]>{
     return this.http.get<Pizzas[]>(`${this.apiServerUrl}/all`);
   }
 
