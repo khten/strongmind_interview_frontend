@@ -9,7 +9,7 @@ git clone https://github.com/khten/strongmind_interview_frontend.git
 cd pizza
 
 <h4>Install npm packages</h4>
-npm install
+<li>npm install</li>
 
 <h4>To run tests</h4>
 <p> Two options here</p>
